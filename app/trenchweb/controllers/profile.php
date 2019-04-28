@@ -21,7 +21,7 @@ class profile extends Controller{
             }catch(\UnexpectedValueException $x){
                 
                 //UUID not in database, redirect to search form
-                $this->header();
+                $this->header(array("urlbase"=>Config::getRootUrl()));
                 $this->view("profile/playernotfound", array("playerstring"=>$param));
                 $this->view("profile/searchform", array("actionURL"=>Config::getRootUrl()));
                 $this->footer();
@@ -34,13 +34,13 @@ class profile extends Controller{
         }
 
         //UUID is valid an we have a Player in $Player
-        $this->header();
+        $this->header(array("urlbase"=>Config::getRootUrl()));
         $this->view("profile/profile", array("username"=>$Player->getUsername(), "uuid"=>$Player->getUUID(), "stats"=>$Player->getStats()));
         $this->footer();
     }
 
     public function searchform(){
-        $this->header();
+        $this->header(array("urlbase"=>Config::getRootUrl()));
         $this->view("profile/searchform", array("actionURL"=>Config::getRootUrl()));
         $this->footer();
     }
@@ -55,7 +55,7 @@ class profile extends Controller{
         $res = Player::searchUsernames($params);
         
         //Output
-        $this->header();
+        $this->header(array("urlbase"=>Config::getRootUrl()));
         
         $this->view("profile/searchform", array("actionURL"=>Config::getRootUrl(), "param"=>htmlentities($params)));
         $this->view("player/searchresults", array("results"=>$res));
