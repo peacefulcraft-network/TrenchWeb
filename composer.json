@@ -9,7 +9,7 @@
         }
     ],
     "repositories":[
-        {"type":"vcs", "url":"git@gitlabcom:tsauction/tsa-mvc"}
+        {"type":"vcs", "url":"git@gitlab.com:tsauction/tsa-mvc"}
     ],
     "require": {
         "php":"7.2.*",
