@@ -1,0 +1,23 @@
+{
+    "name": "pcnnet/trenchweb",
+    "description": "PeacefulCraft Network Trench Statistics Web Interface",
+    "type": "project",
+    "authors": [
+        {
+            "name": "pcnsystems",
+            "email": "systems@peacefulcraft.net"
+        }
+    ],
+    "repositories":[
+        {"type":"vcs", "url":"git@gitlabcom:tsauction/tsa-mvc"}
+    ],
+    "require": {
+        "php":"7.2.*",
+        "tsauction/tsa-mvc":"dev-master"
+    },
+    "autoload":{
+        "psr-4":{
+             "pcn\\trenchweb\\":"app/"
+         }
+    }
+}
