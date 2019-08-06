@@ -14,7 +14,7 @@ class Config extends \tsa\mvc\core\Config{
 
     private static function initRootUrl(){
         if(SELF::$_is_prod){
-            SELF::$_root_url = "https://adm.peacefulcraft.net/trenchweb";
+            SELF::$_root_url = "https://player.peacefulcraft.net";
         }else{
             SELF::$_root_url = "http://localhost/TrenchWeb/public";
         }
