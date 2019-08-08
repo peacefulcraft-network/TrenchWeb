@@ -21,10 +21,18 @@ var PlayerSearch = {
 
         return m.request({
             method: "GET",
-            url:AppConfig.api_endpoint,
+            url:AppConfig.api_endpoint + "?action=search&params=" + params,
             withCredentials: false
         }).then(function(resp){
+            if(resp.length == 0){
+                PlayerSearch.results = [{error:"No Results"}];
+                return;
+            }
             PlayerSearch.results = resp;
+        }).catch(function(error){
+            PlayerSearch.results = [{"error":error.message}];
+            console.log("[PCN]" + error.code);
+            console.log(error.message);
         });
     },
 }

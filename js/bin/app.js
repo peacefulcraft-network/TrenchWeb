@@ -81,10 +81,309 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./js/AppConfig.js":
+/*!*************************!*\
+  !*** ./js/AppConfig.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var AppConfig = {
+    api_endpoint: "http://ldev.peacefulcraft.net/TrenchWeb/api.php",
+    player_head_endpoint: "https://minotar.net/avatar/"
+}
+
+module.exports = AppConfig;
+
+/***/ }),
+
+/***/ "./js/Base.js":
+/*!********************!*\
+  !*** ./js/Base.js ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+var Navigation = __webpack_require__(/*! ./components/views/Navigation.js */ "./js/components/views/Navigation.js");
+
+var Base = {
+    view: function(vnode){
+        return [
+            m(Navigation),
+            m("section.mainbody", vnode.attrs.docBody)
+        ]
+    }
+}
+
+module.exports = Base;
+
+/***/ }),
+
+/***/ "./js/components/models/PlayerProfile.js":
+/*!***********************************************!*\
+  !*** ./js/components/models/PlayerProfile.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./js/components/models/PlayerSearch.js":
+/*!**********************************************!*\
+  !*** ./js/components/models/PlayerSearch.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+var AppConfig = __webpack_require__(/*! ../../AppConfig.js */ "./js/AppConfig.js");
+
+var PlayerSearch = {
+    params: null,
+        setParams: function(params){ 
+            PlayerSearch.params = params; 
+            PlayerSearch.results = [];
+        },
+    results: [],
+    loadResults: function(){
+        let params = PlayerSearch.params;
+        
+        //Make sure we have something to search for
+        if(params == null || typeof params == "undefined")
+            return;
+
+        //Make sure that it is something meaningful
+        if(params.length < 2 || params.length > 16)
+            return;
+
+        return m.request({
+            method: "GET",
+            url:AppConfig.api_endpoint + "?action=search&params=" + params,
+            withCredentials: false
+        }).then(function(resp){
+            if(resp.length == 0){
+                PlayerSearch.results = [{error:"No Results"}];
+                return;
+            }
+            PlayerSearch.results = resp;
+        }).catch(function(error){
+            PlayerSearch.results = [{"error":error.message}];
+            console.log("[PCN]" + error.code);
+            console.log(error.message);
+        });
+    },
+}
+
+module.exports = PlayerSearch;
+
+/***/ }),
+
+/***/ "./js/components/views/Navigation.js":
+/*!*******************************************!*\
+  !*** ./js/components/views/Navigation.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+var PlayerSearchBar = __webpack_require__(/*! ./PlayerSearchBar.js */ "./js/components/views/PlayerSearchBar.js");
+
+var Navigation = {
+    oninit: () =>{ 
+        this.links = [
+            {display:"Home", path:"/home"}, 
+        ]
+    },
+    view: (vnode) => {
+        return m("navigation", {},
+            m("img.logo", {
+                src:"https://www.peacefulcraft.net/assets/logo-aglqhi2l.png", 
+                width:40, 
+                height:40
+            }),
+            m(PlayerSearchBar),
+            m(".navLinks", this.links.map(function(link){
+                return(m(m.route.Link, {href:link.path}, link.display));
+            }))
+        );
+    }
+};
+
+module.exports = Navigation;
+
+/***/ }),
+
+/***/ "./js/components/views/PlayerProfileResult.js":
+/*!****************************************************!*\
+  !*** ./js/components/views/PlayerProfileResult.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./js/components/views/PlayerSearchBar.js":
+/*!************************************************!*\
+  !*** ./js/components/views/PlayerSearchBar.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+PlayerSearch = __webpack_require__(/*! ../models/PlayerSearch.js */ "./js/components/models/PlayerSearch.js");
+/**
+ * A input[text] box with a button that routes to the search page
+ */
+var PlayerSearchBar = {
+    fireSearch: function() { m.route.set("/search/" + PlayerSearch.params); },
+    view: function(vnode){
+        return m("span",
+            m("input.playerSearch[type=text]", {
+                oninput: function(e){ 
+                   PlayerSearch.setParams(e.target.value);
+                   e.redraw = false;
+                },
+                onkeyup: function(e){
+                    if(e.keyCode == 13){
+                        PlayerSearchBar.fireSearch();
+                    }
+                    e.redraw = false;
+                },
+                value:PlayerSearch.params
+            }),
+            m("input.playerSearch[type=button]", {
+                value:"Search", 
+                onclick: function() {
+                    PlayerSearchBar.fireSearch();
+                },
+            })
+        );
+    }
+}
+
+module.exports = PlayerSearchBar;
+
+/***/ }),
+
+/***/ "./js/components/views/PlayerSearchResults.js":
+/*!****************************************************!*\
+  !*** ./js/components/views/PlayerSearchResults.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+var AppConfig = __webpack_require__(/*! ../../AppConfig.js */ "./js/AppConfig.js");
+var PlayerSearch = __webpack_require__(/*! ../models/PlayerSearch.js */ "./js/components/models/PlayerSearch.js");
+
+var PlayerSearchResults = {
+    resultsBody: function(vnodes){
+        return m("section.PlayerSearchResults", vnodes);
+    },
+    resultsRow: function(player){
+        return m("div.PlayerSearchResultsRow",
+            m("img.PlayerSearchResultsHead", {
+                src: AppConfig.player_head_endpoint + player.uuid + "/60.png"
+            }),
+            m("div.PlayerSearchResultsInfoWrapper",
+                m("div.PlayerSearchResultsPlayerMeta",
+                    m("span.PlayerSearchResultPlayerName", player.username),
+                    m("span.PlayerSearchResultPlayerClass", player.favorite_class)
+                ),
+                m("div.PlayerSearchResultsPlayerQuickStats",
+                    m("font.PlayerSearchResultsPlayerQuickStat","Kills: ",
+                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.player_kills)
+                    ),
+                    m("font.PlayerSearchResultsPlayerQuickStat","Deaths: ",
+                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.player_deaths)
+                    ),
+                    m("font.PlayerSearchResultsPlayerQuickStat","Ratio: ", 
+                        m("font.PlayerSearchResultsPlayerQuickStatValue",
+                            (player.player_kills / player.player_deaths).toFixed(2)
+                        )
+                    )
+                )
+            )
+        );
+    },
+    view: function() {
+        if(PlayerSearch.results.length == 0){
+            return this.resultsBody([m("h2", "No Results")]);
+        }
+
+        let vnodes = [];
+        PlayerSearch.results.forEach( (player) =>{
+            vnodes.push(
+                m(m.route.Link, {
+                    href:"/profile/" + player.uuid,
+                    style:"text-decoration: none;"
+                }, this.resultsRow(player))
+            );
+        });
+
+        return this.resultsBody(vnodes);
+    }
+}
+
+module.exports = PlayerSearchResults;
+
+/***/ }),
+
+/***/ "./js/index.js":
+/*!*********************!*\
+  !*** ./js/index.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+//  Core
+var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+var Base = __webpack_require__(/*! ./Base.js */ "./js/Base.js");
+
+//  Models
+var PlayerSearch = __webpack_require__(/*! ./components/models/PlayerSearch.js */ "./js/components/models/PlayerSearch.js");
+var PlayerProfile = __webpack_require__(/*! ./components/models/PlayerProfile.js */ "./js/components/models/PlayerProfile.js");
+
+//  Views
+var PlayerSearchResults = __webpack_require__(/*! ./components/views/PlayerSearchResults.js */ "./js/components/views/PlayerSearchResults.js");
+var PlayerProfileResult = __webpack_require__(/*! ./components/views/PlayerProfileResult.js */ "./js/components/views/PlayerProfileResult.js");
+
+m.route(document.body, "/home",{
+    "/home":{
+        render: function(){
+            return m(Base, {docBody: m("h2","Hello!") });
+        }
+    },
+    "/search/:params":{
+        render: function(vnode){
+            if(PlayerSearch.params == null)
+                PlayerSearch.setParams(vnode.attrs.params);
+            
+            if(PlayerSearch.results.length == 0){
+                PlayerSearch.loadResults();
+            }
+
+            return m(Base, { docBody:m(PlayerSearchResults) });
+        }
+    },
+    "/profile/:uuid":{
+        render: function(vnode){
+            return m(Base, {docBody: m("h2","Player Profile! " + vnode.attrs.uuid) });
+        }
+    }
+});
+
+/***/ }),
 
 /***/ "./node_modules/mithril/api/mount-redraw.js":
 /*!**************************************************!*\
@@ -2908,297 +3207,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-
-/***/ "./public/js/AppConfig.js":
-/*!********************************!*\
-  !*** ./public/js/AppConfig.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var AppConfig = {
-    api_endpoint: "http://ldev.peacefulcraft.net/TrenchWeb/api.php",
-    player_head_endpoint: "https://minotar.net/avatar/"
-}
-
-module.exports = AppConfig;
-
-/***/ }),
-
-/***/ "./public/js/Base.js":
-/*!***************************!*\
-  !*** ./public/js/Base.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
-var Navigation = __webpack_require__(/*! ./components/views/Navigation.js */ "./public/js/components/views/Navigation.js");
-
-var Base = {
-    view: function(vnode){
-        return [
-            m(Navigation),
-            m("section.mainbody", vnode.attrs.docBody)
-        ]
-    }
-}
-
-module.exports = Base;
-
-/***/ }),
-
-/***/ "./public/js/components/models/PlayerProfile.js":
-/*!******************************************************!*\
-  !*** ./public/js/components/models/PlayerProfile.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./public/js/components/models/PlayerSearch.js":
-/*!*****************************************************!*\
-  !*** ./public/js/components/models/PlayerSearch.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
-var AppConfig = __webpack_require__(/*! ../../AppConfig.js */ "./public/js/AppConfig.js");
-
-var PlayerSearch = {
-    params: null,
-        setParams: function(params){ 
-            PlayerSearch.params = params; 
-            PlayerSearch.results = [];
-        },
-    results: [],
-    loadResults: function(){
-        let params = PlayerSearch.params;
-        
-        //Make sure we have something to search for
-        if(params == null || typeof params == "undefined")
-            return;
-
-        //Make sure that it is something meaningful
-        if(params.length < 2 || params.length > 16)
-            return;
-
-        return m.request({
-            method: "GET",
-            url:AppConfig.api_endpoint,
-            withCredentials: false
-        }).then(function(resp){
-            PlayerSearch.results = resp;
-        });
-    },
-}
-
-module.exports = PlayerSearch;
-
-/***/ }),
-
-/***/ "./public/js/components/views/Navigation.js":
-/*!**************************************************!*\
-  !*** ./public/js/components/views/Navigation.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
-var PlayerSearchBar = __webpack_require__(/*! ./PlayerSearchBar.js */ "./public/js/components/views/PlayerSearchBar.js");
-
-var Navigation = {
-    oninit: () =>{ 
-        this.links = [
-            {display:"Home", path:"/home"}, 
-        ]
-    },
-    view: (vnode) => {
-        return m("navigation", {},
-            m("img.logo", {
-                src:"https://www.peacefulcraft.net/assets/logo-aglqhi2l.png", 
-                width:40, 
-                height:40
-            }),
-            m(PlayerSearchBar),
-            m(".navLinks", this.links.map(function(link){
-                return(m(m.route.Link, {href:link.path}, link.display));
-            }))
-        );
-    }
-};
-
-module.exports = Navigation;
-
-/***/ }),
-
-/***/ "./public/js/components/views/PlayerProfileResult.js":
-/*!***********************************************************!*\
-  !*** ./public/js/components/views/PlayerProfileResult.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./public/js/components/views/PlayerSearchBar.js":
-/*!*******************************************************!*\
-  !*** ./public/js/components/views/PlayerSearchBar.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
-PlayerSearch = __webpack_require__(/*! ../models/PlayerSearch.js */ "./public/js/components/models/PlayerSearch.js");
-/**
- * A input[text] box with a button that routes to the search page
- */
-var PlayerSearchBar = {
-    fireSearch: function() { m.route.set("/search/" + PlayerSearch.params); },
-    view: function(vnode){
-        return m("span",
-            m("input.playerSearch[type=text]", {
-                oninput: function(e){ 
-                   PlayerSearch.setParams(e.target.value);
-                   e.redraw = false;
-                },
-                onkeyup: function(e){
-                    if(e.keyCode == 13){
-                        PlayerSearchBar.fireSearch();
-                    }
-                    e.redraw = false;
-                },
-                value:PlayerSearch.params
-            }),
-            m("input.playerSearch[type=button]", {
-                value:"Search", 
-                onclick: function() {
-                    PlayerSearchBar.fireSearch();
-                },
-            })
-        );
-    }
-}
-
-module.exports = PlayerSearchBar;
-
-/***/ }),
-
-/***/ "./public/js/components/views/PlayerSearchResults.js":
-/*!***********************************************************!*\
-  !*** ./public/js/components/views/PlayerSearchResults.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
-var AppConfig = __webpack_require__(/*! ../../AppConfig.js */ "./public/js/AppConfig.js");
-var PlayerSearch = __webpack_require__(/*! ../models/PlayerSearch.js */ "./public/js/components/models/PlayerSearch.js");
-
-var PlayerSearchResults = {
-    resultsBody: function(vnodes){
-        return m("section.PlayerSearchResults", vnodes);
-    },
-    resultsRow: function(player){
-        return m("div.PlayerSearchResultsRow",
-            m("img.PlayerSearchResultsHead", {
-                src: AppConfig.player_head_endpoint + player.uuid + "/60.png"
-            }),
-            m("div.PlayerSearchResultsInfoWrapper",
-                m("div.PlayerSearchResultsPlayerMeta",
-                    m("span.PlayerSearchResultPlayerName", player.name),
-                    m("span.PlayerSearchResultPlayerClass", player.favorite_class)
-                ),
-                m("div.PlayerSearchResultsPlayerQuickStats",
-                    m("font.PlayerSearchResultsPlayerQuickStat","Kills: ",
-                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.kills)
-                    ),
-                    m("font.PlayerSearchResultsPlayerQuickStat","Deaths: ",
-                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.deaths)
-                    ),
-                    m("font.PlayerSearchResultsPlayerQuickStat","Ratio: ", 
-                        m("font.PlayerSearchResultsPlayerQuickStatValue",
-                            (player.kills / player.deaths).toFixed(2)
-                        )
-                    )
-                )
-            )
-        );
-    },
-    view: function() {
-        if(PlayerSearch.results.length == 0){
-            return this.resultsBody([m("h2", "No Results")]);
-        }
-
-        let vnodes = [];
-        PlayerSearch.results.forEach( (player) =>{
-            vnodes.push(
-                m(m.route.Link, {
-                    href:"/profile/" + player.uuid,
-                    style:"text-decoration: none;"
-                }, this.resultsRow(player))
-            );
-        });
-
-        return this.resultsBody(vnodes);
-    }
-}
-
-module.exports = PlayerSearchResults;
-
-/***/ }),
-
-/***/ "./public/js/index.js":
-/*!****************************!*\
-  !*** ./public/js/index.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-//  Core
-var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
-var Base = __webpack_require__(/*! ./Base.js */ "./public/js/Base.js");
-
-//  Models
-var PlayerSearch = __webpack_require__(/*! ./components/models/PlayerSearch.js */ "./public/js/components/models/PlayerSearch.js");
-var PlayerProfile = __webpack_require__(/*! ./components/models/PlayerProfile.js */ "./public/js/components/models/PlayerProfile.js");
-
-//  Views
-var PlayerSearchResults = __webpack_require__(/*! ./components/views/PlayerSearchResults.js */ "./public/js/components/views/PlayerSearchResults.js");
-var PlayerProfileResult = __webpack_require__(/*! ./components/views/PlayerProfileResult.js */ "./public/js/components/views/PlayerProfileResult.js");
-
-m.route(document.body, "/home",{
-    "/home":{
-        render: function(){
-            return m(Base, {docBody: m("h2","Hello!") });
-        }
-    },
-    "/search/:params":{
-        render: function(vnode){
-            if(PlayerSearch.params == null)
-                PlayerSearch.setParams(vnode.attrs.params);
-            
-            if(PlayerSearch.results.length == 0){
-                PlayerSearch.loadResults();
-            }
-
-            return m(Base, { docBody:m(PlayerSearchResults) });
-        }
-    },
-    "/profile/:uuid":{
-        render: function(vnode){
-            return m(Base, {docBody: m("h2","Player Profile! " + vnode.attrs.uuid) });
-        }
-    }
-});
 
 /***/ })
 

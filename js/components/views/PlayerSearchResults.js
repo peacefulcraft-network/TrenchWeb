@@ -13,19 +13,19 @@ var PlayerSearchResults = {
             }),
             m("div.PlayerSearchResultsInfoWrapper",
                 m("div.PlayerSearchResultsPlayerMeta",
-                    m("span.PlayerSearchResultPlayerName", player.name),
+                    m("span.PlayerSearchResultPlayerName", player.username),
                     m("span.PlayerSearchResultPlayerClass", player.favorite_class)
                 ),
                 m("div.PlayerSearchResultsPlayerQuickStats",
                     m("font.PlayerSearchResultsPlayerQuickStat","Kills: ",
-                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.kills)
+                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.player_kills)
                     ),
                     m("font.PlayerSearchResultsPlayerQuickStat","Deaths: ",
-                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.deaths)
+                        m("font.PlayerSearchResultsPlayerQuickStatValue", player.player_deaths)
                     ),
                     m("font.PlayerSearchResultsPlayerQuickStat","Ratio: ", 
                         m("font.PlayerSearchResultsPlayerQuickStatValue",
-                            (player.kills / player.deaths).toFixed(2)
+                            (player.player_kills / player.player_deaths).toFixed(2)
                         )
                     )
                 )
