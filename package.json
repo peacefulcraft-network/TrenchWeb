@@ -23,7 +23,7 @@
     "wepack-cli": "0.0.1-security"
   },
   "scripts": {
-    "start": "webpack public/js/index.js --output public/js/bin/app.js -d --watch --devtool source-map",
-    "build": "webpack public/js/index.js --output public/js/bin/app.js -p"
+    "start": "webpack js/index.js --output js/bin/app.js -d --watch --devtool source-map",
+    "build": "webpack js/index.js --output js/bin/app.js -p"
 }
 }
