@@ -16,16 +16,18 @@ m.route(document.body, "/home",{
             return m(Base, {docBody: m("h2","Hello!") });
         }
     },
-    "/search/:params":{
+    "/search/:searchParams":{
         render: function(vnode){
-            if(PlayerSearch.params == null)
-                PlayerSearch.setParams(vnode.attrs.params);
-            
-            if(PlayerSearch.results.length == 0){
+            //Trigger search based on url params
+            if((!PlayerSearch.hasSearched) || PlayerSearch.getParams() != vnode.attrs.searchParams){
+                PlayerSearch.setParams(vnode.attrs.searchParams);
                 PlayerSearch.loadResults();
             }
 
-            return m(Base, { docBody:m(PlayerSearchResults) });
+            return m(Base, { 
+                searchParams: vnode.attrs.searchParams, 
+                docBody:m(PlayerSearchResults) 
+            });
         }
     },
     "/profile/:uuid":{

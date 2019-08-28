@@ -14,7 +14,7 @@ var Navigation = {
                 width:40, 
                 height:40
             }),
-            m(PlayerSearchBar),
+            m(PlayerSearchBar, {searchParams: vnode.attrs.searchParams}),
             m(".navLinks", this.links.map(function(link){
                 return(m(m.route.Link, {href:link.path}, link.display));
             }))

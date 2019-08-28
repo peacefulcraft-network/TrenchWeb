@@ -3,11 +3,16 @@ var AppConfig = require("../../AppConfig.js");
 
 var PlayerSearch = {
     params: null,
+        getParams: function(){
+            return this.params;
+        },
         setParams: function(params){ 
             PlayerSearch.params = params; 
             PlayerSearch.results = [];
+            this.hasSearched = false;
         },
     results: [],
+    hasSearched: false,
     loadResults: function(){
         let params = PlayerSearch.params;
         
@@ -16,8 +21,12 @@ var PlayerSearch = {
             return;
 
         //Make sure that it is something meaningful
-        if(params.length < 2 || params.length > 16)
+        if(params.length < 3 || params.length > 16)
             return;
+
+        //Make sure we don't redraw to infinity
+        if(this.hasSearched){return;}
+        this.hasSearched = true;
 
         return m.request({
             method: "GET",
@@ -25,12 +34,12 @@ var PlayerSearch = {
             withCredentials: false
         }).then(function(resp){
             if(resp.length == 0){
-                PlayerSearch.results = [{error:"No Results"}];
+                PlayerSearch.results = [];
                 return;
             }
             PlayerSearch.results = resp;
         }).catch(function(error){
-            PlayerSearch.results = [{"error":error.message}];
+            PlayerSearch.results = [];
             console.log("[PCN]" + error.code);
             console.log(error.message);
         });

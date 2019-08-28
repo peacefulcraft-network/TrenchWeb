@@ -9,16 +9,9 @@ var PlayerSearchBar = {
         return m("span",
             m("input.playerSearch[type=text]", {
                 oninput: function(e){ 
-                   PlayerSearch.setParams(e.target.value);
-                   e.redraw = false;
+                    m.route.set("/search/" + e.target.value);
                 },
-                onkeyup: function(e){
-                    if(e.keyCode == 13){
-                        PlayerSearchBar.fireSearch();
-                    }
-                    e.redraw = false;
-                },
-                value:PlayerSearch.params
+                value:vnode.attrs.searchParams
             }),
             m("input.playerSearch[type=button]", {
                 value:"Search", 

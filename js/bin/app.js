@@ -115,7 +115,7 @@ var Navigation = __webpack_require__(/*! ./components/views/Navigation.js */ "./
 var Base = {
     view: function(vnode){
         return [
-            m(Navigation),
+            m(Navigation, {searchParams: vnode.attrs.searchParams}),
             m("section.mainbody", vnode.attrs.docBody)
         ]
     }
@@ -148,11 +148,16 @@ var AppConfig = __webpack_require__(/*! ../../AppConfig.js */ "./js/AppConfig.js
 
 var PlayerSearch = {
     params: null,
+        getParams: function(){
+            return this.params;
+        },
         setParams: function(params){ 
             PlayerSearch.params = params; 
             PlayerSearch.results = [];
+            this.hasSearched = false;
         },
     results: [],
+    hasSearched: false,
     loadResults: function(){
         let params = PlayerSearch.params;
         
@@ -161,8 +166,12 @@ var PlayerSearch = {
             return;
 
         //Make sure that it is something meaningful
-        if(params.length < 2 || params.length > 16)
+        if(params.length < 3 || params.length > 16)
             return;
+
+        //Make sure we don't redraw to infinity
+        if(this.hasSearched){return;}
+        this.hasSearched = true;
 
         return m.request({
             method: "GET",
@@ -170,12 +179,12 @@ var PlayerSearch = {
             withCredentials: false
         }).then(function(resp){
             if(resp.length == 0){
-                PlayerSearch.results = [{error:"No Results"}];
+                PlayerSearch.results = [];
                 return;
             }
             PlayerSearch.results = resp;
         }).catch(function(error){
-            PlayerSearch.results = [{"error":error.message}];
+            PlayerSearch.results = [];
             console.log("[PCN]" + error.code);
             console.log(error.message);
         });
@@ -209,7 +218,7 @@ var Navigation = {
                 width:40, 
                 height:40
             }),
-            m(PlayerSearchBar),
+            m(PlayerSearchBar, {searchParams: vnode.attrs.searchParams}),
             m(".navLinks", this.links.map(function(link){
                 return(m(m.route.Link, {href:link.path}, link.display));
             }))
@@ -250,16 +259,9 @@ var PlayerSearchBar = {
         return m("span",
             m("input.playerSearch[type=text]", {
                 oninput: function(e){ 
-                   PlayerSearch.setParams(e.target.value);
-                   e.redraw = false;
+                    m.route.set("/search/" + e.target.value);
                 },
-                onkeyup: function(e){
-                    if(e.keyCode == 13){
-                        PlayerSearchBar.fireSearch();
-                    }
-                    e.redraw = false;
-                },
-                value:PlayerSearch.params
+                value:vnode.attrs.searchParams
             }),
             m("input.playerSearch[type=button]", {
                 value:"Search", 
@@ -364,16 +366,18 @@ m.route(document.body, "/home",{
             return m(Base, {docBody: m("h2","Hello!") });
         }
     },
-    "/search/:params":{
+    "/search/:searchParams":{
         render: function(vnode){
-            if(PlayerSearch.params == null)
-                PlayerSearch.setParams(vnode.attrs.params);
-            
-            if(PlayerSearch.results.length == 0){
+            //Trigger search based on url params
+            if((!PlayerSearch.hasSearched) || PlayerSearch.getParams() != vnode.attrs.searchParams){
+                PlayerSearch.setParams(vnode.attrs.searchParams);
                 PlayerSearch.loadResults();
             }
 
-            return m(Base, { docBody:m(PlayerSearchResults) });
+            return m(Base, { 
+                searchParams: vnode.attrs.searchParams, 
+                docBody:m(PlayerSearchResults) 
+            });
         }
     },
     "/profile/:uuid":{
