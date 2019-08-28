@@ -1,0 +1,29 @@
+{
+  "name": "trenchweb",
+  "version": "1.0.0",
+  "description": "TrenchPvP Statistics Website",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peacefulcraft-network/TrenchWeb.git"
+  },
+  "keywords": [],
+  "author": "PeacefulCraft Network",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peacefulcraft-network/TrenchWeb/issues"
+  },
+  "homepage": "https://github.com/peacefulcraft-network/TrenchWeb#readme",
+  "dependencies": {
+    "mithril": "^2.0.3"
+  },
+  "devDependencies": {
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "wepack-cli": "0.0.1-security"
+  },
+  "scripts": {
+    "start": "webpack js/index.js --output js/bin/app.js -d --watch --devtool source-map",
+    "build": "webpack js/index.js --output js/bin/app.js -p"
+}
+}
