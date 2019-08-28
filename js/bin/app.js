@@ -166,7 +166,7 @@ var PlayerSearch = {
             return;
 
         //Make sure that it is something meaningful
-        if(params.length < 3 || params.length > 16)
+        if(params.length < 1 || params.length > 16)
             return;
 
         //Make sure we don't redraw to infinity
@@ -192,6 +192,31 @@ var PlayerSearch = {
 }
 
 module.exports = PlayerSearch;
+
+/***/ }),
+
+/***/ "./js/components/views/Home.js":
+/*!*************************************!*\
+  !*** ./js/components/views/Home.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var m = __webpack_require__(/*! mithril */ "./node_modules/mithril/index.js");
+
+var Home = {
+    view: (vnode) => {
+        return m("section", {class:"home"}, 
+            //This is dumb
+            "TrenchPvP is a custom, TDM, PvP Minigame. On this website you can view your"+
+            " game statistics. We know that many of the statistics are not accurate right now"+
+            " but we're working to fix that. This website is at an equal state of development" +
+            " and we will continue to add functionality over the next several months."
+        );
+    }
+}
+
+module.exports = Home;
 
 /***/ }),
 
@@ -357,13 +382,14 @@ var PlayerSearch = __webpack_require__(/*! ./components/models/PlayerSearch.js *
 var PlayerProfile = __webpack_require__(/*! ./components/models/PlayerProfile.js */ "./js/components/models/PlayerProfile.js");
 
 //  Views
+var Home = __webpack_require__(/*! ./components/views/Home.js */ "./js/components/views/Home.js");
 var PlayerSearchResults = __webpack_require__(/*! ./components/views/PlayerSearchResults.js */ "./js/components/views/PlayerSearchResults.js");
 var PlayerProfileResult = __webpack_require__(/*! ./components/views/PlayerProfileResult.js */ "./js/components/views/PlayerProfileResult.js");
 
 m.route(document.body, "/home",{
     "/home":{
         render: function(){
-            return m(Base, {docBody: m("h2","Hello!") });
+            return m(Base, {docBody: m(Home) });
         }
     },
     "/search/:searchParams":{

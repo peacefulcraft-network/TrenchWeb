@@ -7,13 +7,14 @@ var PlayerSearch = require("./components/models/PlayerSearch.js");
 var PlayerProfile = require("./components/models/PlayerProfile.js");
 
 //  Views
+var Home = require("./components/views/Home.js");
 var PlayerSearchResults = require("./components/views/PlayerSearchResults.js");
 var PlayerProfileResult = require("./components/views/PlayerProfileResult.js");
 
 m.route(document.body, "/home",{
     "/home":{
         render: function(){
-            return m(Base, {docBody: m("h2","Hello!") });
+            return m(Base, {docBody: m(Home) });
         }
     },
     "/search/:searchParams":{
