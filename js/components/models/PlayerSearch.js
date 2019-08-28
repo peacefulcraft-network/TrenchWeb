@@ -21,7 +21,7 @@ var PlayerSearch = {
             return;
 
         //Make sure that it is something meaningful
-        if(params.length < 3 || params.length > 16)
+        if(params.length < 1 || params.length > 16)
             return;
 
         //Make sure we don't redraw to infinity

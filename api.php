@@ -12,7 +12,7 @@ switch($_GET["action"]){
 
         //Check for valid length
         if(strlen($_GET["params"]) > 16){ invalidRequest(); }
-        if(strlen($_GET["params"]) < 3){ invalidRequest(); }
+        if(strlen($_GET["params"]) < 1){ invalidRequest(); }
 
         //don't let visitors use wildcards, we only want one at the end
         $params = str_replace("%", "", $_GET["params"]) . "%";
