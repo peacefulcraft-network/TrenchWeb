@@ -2,19 +2,8 @@ var m = require("mithril");
 var AppConfig = require("../../AppConfig.js");
 
 var PlayerSearch = {
-    params: null,
-        getParams: function(){
-            return this.params;
-        },
-        setParams: function(params){ 
-            PlayerSearch.params = params; 
-            PlayerSearch.results = [];
-            this.hasSearched = false;
-        },
     results: [],
-    hasSearched: false,
-    loadResults: function(){
-        let params = PlayerSearch.params;
+    loadResults: function(params){
         
         //Make sure we have something to search for
         if(params == null || typeof params == "undefined")
@@ -23,10 +12,6 @@ var PlayerSearch = {
         //Make sure that it is something meaningful
         if(params.length < 1 || params.length > 16)
             return;
-
-        //Make sure we don't redraw to infinity
-        if(this.hasSearched){return;}
-        this.hasSearched = true;
 
         return m.request({
             method: "GET",

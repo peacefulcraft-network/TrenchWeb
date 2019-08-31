@@ -3,6 +3,7 @@ var AppConfig = require("../../AppConfig.js");
 var PlayerSearch = require("../models/PlayerSearch.js");
 
 var PlayerSearchResults = {
+    oninit: (vnode) => { PlayerSearch.loadResults(vnode.attrs.searchParams);},
     resultsBody: function(vnodes){
         return m("section.PlayerSearchResults", vnodes);
     },
