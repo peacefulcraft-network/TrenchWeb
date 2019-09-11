@@ -28,13 +28,9 @@ m.route(document.body, "/home",{
     },
     "/profile/:uuid":{
         render: function(vnode){
-            
-            if( (!PlayerProfile.getLoadStatus()) || PlayerProfile.getParams() != vnode.attrs.uuid){
-                PlayerProfile.setParams(vnode.attrs.uuid);
-                PlayerProfile.loadResults();
-            }
-
-            return m(Base, {docBody: m("h2","Player Profile! " + vnode.attrs.uuid) });
+            return m(Base, {
+                docBody: m(PlayerProfileResult, {uuid: vnode.attrs.uuid}) 
+            });
         }
     }
 });

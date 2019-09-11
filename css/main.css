@@ -143,3 +143,47 @@ font.PlayerSearchResultsPlayerQuickStat{
 font.PlayerSearchResultsPlayerQuickStatValue{
     font-size:24px;
 }
+
+div.profile{
+    
+}
+
+div.profile_header{
+    width:80vh;
+    height:80vh;
+    margin:auto;
+    margin-top:30px;
+    border-radius: 2px;
+    background-color: #29393b;
+    padding-top:15px;
+}
+
+div.profile_header_left{
+    float:left;
+    width:50%;
+}
+
+div.profile_header_left img{
+    margin-left: 25%;
+    width:240px;
+    height:240px;;
+}
+
+div.profile_header_right{
+    float:right;
+    width:50%;
+    height:240px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+span.profile_header_stat_wrapper{
+    font-size:24px;
+}
+
+font.profile_header_stat_label{
+    font-size:16px;
+}

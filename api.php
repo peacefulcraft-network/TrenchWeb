@@ -35,7 +35,25 @@ switch($_GET["action"]){
 
     break; case "profile":
 
-       
+        //Make sure there are serach parameters
+        if(!isset($_GET["params"])){ invalidRequest(); }
+
+        //Check for valid uuid
+        if(!strlen($_GET["params"]) == 32){ invalidRequest(); }
+
+        $mysqli = initMysql();
+
+        $table = $mysqli->real_escape_string($CONFIG["db_table"]);
+        $stmt = $mysqli->prepare("SELECT * FROM `$table` WHERE `uuid`= ? LIMIT 1");
+        $stmt->bind_param("s",$_GET["params"]);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $profile = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        echo json_encode($profile);
+        exit();
 
     break; default:
 
