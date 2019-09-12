@@ -143,3 +143,105 @@ font.PlayerSearchResultsPlayerQuickStat{
 font.PlayerSearchResultsPlayerQuickStatValue{
     font-size:24px;
 }
+
+div.profile{
+    width:70vw;
+    height:80vh;
+    margin:auto;
+    margin-top:30px;
+    border-radius: 2px;
+    background-color: #29393b;
+    padding-top:15px;
+}
+
+div.profile_header{
+   height:250px;
+}
+
+div.profile_header_left{
+    float:left;
+    width:50%;
+}
+
+div.profile_header_left img{
+    margin-left: 25%;
+    width:240px;
+    height:240px;;
+}
+
+div.profile_header_right{
+    float:right;
+    width:50%;
+    height:240px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+span.profile_header_stat_wrapper{
+    font-size:24px;
+}
+
+font.profile_header_stat_label{
+    font-size:16px;
+}
+
+div.class_stats {
+    margin-top:20px;
+    border-top: 4px solid #141d1f;
+}
+
+div.class_stat_navigation{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    margin-top:5px;
+    margin-left:5vw;
+    margin-right:5vw;
+    padding-bottom:5px;
+}
+
+div.class_stat_navigation span{
+    margin-left:5px;
+    margin-right:5px;
+    padding:4px 15px 4px 15px;
+    font-size: 18px;
+
+    border: 1px solid #141d1f;
+}
+
+div.class_stat_navigation span:hover{
+    cursor: pointer;
+    color: #80b799;
+}
+
+div.class_stat_wrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    margin-top:30px;
+    margin-left:3vw;
+    margin-right:3vw;
+}
+
+div.class_stat_entry{
+    display:inline-block;
+    width:18vw;
+    margin-bottom:20px;
+}
+
+font.class_stat_entry_value{
+    font-size:24px;
+}
+
+div.combat_log{
+    border-top: 4px solid #141d1f;
+    padding-top: 20px;
+
+    font-style: italic;
+    text-align: center;
+}

@@ -19,21 +19,19 @@ m.route(document.body, "/home",{
     },
     "/search/:searchParams":{
         render: function(vnode){
-            //Trigger search based on url params
-            if((!PlayerSearch.hasSearched) || PlayerSearch.getParams() != vnode.attrs.searchParams){
-                PlayerSearch.setParams(vnode.attrs.searchParams);
-                PlayerSearch.loadResults();
-            }
-
+            // Pass searchParams first for nav, second for results
             return m(Base, { 
                 searchParams: vnode.attrs.searchParams, 
-                docBody:m(PlayerSearchResults) 
+                docBody:m(PlayerSearchResults, {searchParams : vnode.attrs.searchParams}) 
             });
         }
     },
     "/profile/:uuid":{
         render: function(vnode){
-            return m(Base, {docBody: m("h2","Player Profile! " + vnode.attrs.uuid) });
+            // Pass player uuid for searching
+            return m(Base, {
+                docBody: m(PlayerProfileResult, {uuid: vnode.attrs.uuid}) 
+            });
         }
     }
 });

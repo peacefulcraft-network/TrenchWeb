@@ -1,0 +1,59 @@
+{
+    "Scout": [
+        {"key":"scout_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"scout_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"scout_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"scout_slim_slicer_kills", "fai":"fas fa-times", "display":"Slim Slicer Kills"},
+        {"key":"scout_sling_shot_kills", "fai":"fas fa-bullseye", "display":"Sling Shot Kills"}
+    ],
+    "Soldier":[
+        {"key":"soldier_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"soldier_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"soldier_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"soldier_deep_cut_kills", "fai":"fas fa-times", "display":"Deep Cut Kills"},
+        {"key":"soldier_highest_onslaught", "fai":"fas fa-angry", "display":"Highest Onslaught Streak"}
+    ],
+    "Pyro":[
+        {"key":"pyro_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"pyro_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"pyro_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"pyro_inferno_axe_kills", "fai":"fas fa-times", "display":"Inferno Axe Kills"},
+        {"key":"pyro_traps_placed", "fai":"fab fa-gripfire", "display":"Inferno Traps Placed"}
+    ],
+    "Heavy":[
+        {"key":"heavy_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"heavy_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"heavy_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"heavy_dense_axe_kills", "fai":"fas fa-times", "display":"Dense Axe Kills"},
+        {"key":"heavy_absolute_defense_usage", "fai":"fas fa-shield-alt", "display":"Absolute Defense Activations"}
+    ],
+    "Sniper":[
+        {"key":"sniper_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"sniper_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"sniper_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"sniper_component_rifle_kills", "fai":"fas fa-bullseye", "display":"Rifle Kills"},
+        {"key":"sniper_power_shot_upgrades", "fai":"fas fa-arrow-alt-circle-up", "display":"Power Shot Activations"},
+        {"key":"sniper_poison_upgrades", "fai":"fas fa-arrow-alt-circle-up", "display":"Poison Shot Activations"},
+        {"key":"sniper_kurkiri_kills", "fai":"fas fa-times", "display":"Kurkiri Kills"}
+    ],
+    "Demoman":[
+        {"key":"demoman_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"demoman_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"demoman_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"demoman_berthas_placed", "fai":"fas fa-bomb", "display":"Berthas Placed"}
+    ],
+    "Spy":[
+        {"key":"spy_kills", "fai":"fas fa-user-ninja", "display":"Kills"},
+        {"key":"spy_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"spy_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"spy_hidden_blade_kills", "fai":"fas fa-times", "display":"Hidden Blade Kills"},
+        {"key":"spy_speed_shot_usage", "fai":"fas fa-digital-tachograph", "display":"Speed Shot Activations"}
+    ],
+    "Medic":[
+        {"key":"medic_kills", "fai":"fas fa-bullseye", "display":"Kills"},
+        {"key":"medic_deaths", "fai":"fas fa-skull", "display":"Deaths"},
+        {"key":"medic_damage_dealt", "fai":"fas fa-heart-broken", "display":"Damage Dealth"},
+        {"key":"medic_damage_healed", "fai":"fas fa-first-aid", "display":"Health Realed"},
+        {"key":"medic_syringe_gun_kills", "fai":"fas fa-times", "display":"Syringe Gun Kills"}
+    ]
+}

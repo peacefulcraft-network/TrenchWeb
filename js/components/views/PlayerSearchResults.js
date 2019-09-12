@@ -2,10 +2,19 @@ var m = require("mithril");
 var AppConfig = require("../../AppConfig.js");
 var PlayerSearch = require("../models/PlayerSearch.js");
 
+/**
+ * A view that displays search results in rows with some basic stats
+ * TODO: Break this up into smaller compoents
+ *  - Row -> [MetaData, BasicStats]
+ */
 var PlayerSearchResults = {
+    // TODO: move logic call out of the view
+    oninit: (vnode) => { PlayerSearch.loadResults(vnode.attrs.searchParams);},
     resultsBody: function(vnodes){
         return m("section.PlayerSearchResults", vnodes);
     },
+
+    // A row with player head, name, and basic stats
     resultsRow: function(player){
         return m("div.PlayerSearchResultsRow",
             m("img.PlayerSearchResultsHead", {
@@ -32,6 +41,8 @@ var PlayerSearchResults = {
             )
         );
     },
+
+    // Loop through all the results from server, map them to a resultsRow, return the array
     view: function() {
         if(PlayerSearch.results.length == 0){
             return this.resultsBody([m("h2", "No Results")]);
