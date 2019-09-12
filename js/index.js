@@ -19,7 +19,7 @@ m.route(document.body, "/home",{
     },
     "/search/:searchParams":{
         render: function(vnode){
-            //Pass searchParams first for nav, second for results
+            // Pass searchParams first for nav, second for results
             return m(Base, { 
                 searchParams: vnode.attrs.searchParams, 
                 docBody:m(PlayerSearchResults, {searchParams : vnode.attrs.searchParams}) 
@@ -28,6 +28,7 @@ m.route(document.body, "/home",{
     },
     "/profile/:uuid":{
         render: function(vnode){
+            // Pass player uuid for searching
             return m(Base, {
                 docBody: m(PlayerProfileResult, {uuid: vnode.attrs.uuid}) 
             });

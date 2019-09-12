@@ -19,7 +19,7 @@ var PlayerSearchBar = {
             m("input.playerSearch[type=button]", {
                 value:"Search", 
                 onclick: () => {
-                    //oninput should have set searchParams and passed it through
+                    // oninput should have set searchParams and passed it through
                     PlayerSearchBar.fireSearch(vnode.attrs.searchParams);
                 },
             })

@@ -7,14 +7,14 @@ if(!isset($_GET["action"])){ invalidRequest(); }
 switch($_GET["action"]){
     case "search":
 
-        //Make sure there are serach parameters
+        // Make sure there are serach parameters
         if(!isset($_GET["params"])){ invalidRequest(); }
 
-        //Check for valid length
+        // Check for valid length
         if(strlen($_GET["params"]) > 16){ invalidRequest(); }
         if(strlen($_GET["params"]) < 1){ invalidRequest(); }
 
-        //don't let visitors use wildcards, we only want one at the end
+        // don't let visitors use wildcards, we only want one at the end
         $params = str_replace("%", "", $_GET["params"]) . "%";
 
         $mysqli = initMysql();
@@ -35,10 +35,10 @@ switch($_GET["action"]){
 
     break; case "profile":
 
-        //Make sure there are serach parameters
+        // Make sure there are serach parameters
         if(!isset($_GET["params"])){ invalidRequest(); }
 
-        //Check for valid uuid
+        // Check for valid uuid
         if(!strlen($_GET["params"]) == 32){ invalidRequest(); }
 
         $mysqli = initMysql();
@@ -62,7 +62,7 @@ switch($_GET["action"]){
 
 function initMysql(){
 
-    //from appconfig.php
+    // from appconfig.php
     GLOBAL $CONFIG; 
 
     $mysqli = new mysqli(
@@ -70,7 +70,7 @@ function initMysql(){
         $CONFIG["db_password"], $CONFIG["db_name"]
     );
 
-    //Check for db link
+    // Check for db link
     if($mysqli->connect_errno){ 
         http_response_code();
     }
