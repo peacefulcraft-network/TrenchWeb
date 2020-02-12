@@ -1,4 +1,12 @@
 <?php
+// CORS, excessive for this but here in case more functionality is added later.
+header("Access-Control-Allow-Origin: https://player.peacefulcraft.net");
+if($_SERVER['REQUEST_METHOD'] == "OPTIONS") {
+    header("Access-Control-Allow-Methods: GET");
+    header("Access-Control-Allow-Credentials: false");
+    header('Access-Control-Max-Age: 1728000');
+    exit();
+}
 
 require("./appconfig.php");
 
