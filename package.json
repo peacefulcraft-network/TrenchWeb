@@ -25,5 +25,5 @@
   "scripts": {
     "start": "webpack js/index.js --output js/bin/app.js -d --watch --devtool source-map",
     "build": "webpack js/index.js --output js/bin/app.js -p"
-}
+  }
 }
