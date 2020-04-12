@@ -15,7 +15,8 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
-    hot: true
+    hot: true,
+    disableHostCheck: true
   },
   resolve: {
     alias: {
@@ -48,8 +49,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'PeacefulCraft Network',
-      inject: 'body',
+      template: 'public/index.html',
     })
   ]
 }
