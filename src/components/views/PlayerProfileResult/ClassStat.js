@@ -14,8 +14,8 @@ export default {
 
     return m('div',{class:'class_stat_entry'}, 
       [
-        m('i', {class:fai, style:'color:white;'}),
-        m('font', {class:'class_stat_entry_value'}, ' ' + player[key]),
+        m('i', {class: fai, style:'color: #CCC; width: 24px;'}),
+        m('font', {class: 'class_stat_entry_value'}, ' ' + player[key]),
         m('font',{}, ' ' + display)
       ]
     );

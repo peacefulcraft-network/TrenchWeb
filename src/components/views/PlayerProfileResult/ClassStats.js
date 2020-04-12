@@ -1,7 +1,8 @@
 import m from 'mithril';
 
-import AbilityMap from '../../../AbilityMap.json';
+import AbilityMap from '@/AbilityMap.json';
 
+import Select from '@/components/elements/Select';
 import ClassStat from './ClassStat';
 
 /**
@@ -11,8 +12,8 @@ import ClassStat from './ClassStat';
 export default {
 
   // Get the abilities we'll need to display
-  oninit: () => {
-    this.classStatDisplay = Object.keys(AbilityMap)[0];
+  oninit: (vnode) => {
+    vnode.state.classStatDisplay = Object.keys(AbilityMap)[0];
   },
 
   view: (vnode) => {
@@ -21,21 +22,15 @@ export default {
       [
 
         // Navigation area to choose which class info user wants
-        m('div', {class:'class_stat_navigation'},
-          Object.keys(AbilityMap).map(
-            (navText) => {
-              return m('span',{
-                onclick: (e) => { this.classStatDisplay = e.target.innerHTML; }
-              },
-              navText
-              );
-            }
-          )
-        ),
+        m(Select, {
+          opts: Object.keys(AbilityMap),
+          value: vnode.state.classStatDisplay,
+          onchange: (e) => { vnode.state.classStatDisplay = e.target.value; }
+        }),
 
         // Statistics Display Area
         m('div', {class:'class_stat_wrapper'},
-          AbilityMap[this.classStatDisplay].map( (pair) =>{
+          AbilityMap[vnode.state.classStatDisplay].map( (pair) =>{
             return m(ClassStat,{player:vnode.attrs.player, pair:pair});
           })
         )

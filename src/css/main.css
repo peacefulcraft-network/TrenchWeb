@@ -3,31 +3,31 @@
 */
 html{
     font-family: 'Roboto', sans-serif;
-    color: #b2bdb7;
+    color: #454545;
 }
 
 body{
     margin: 0px;
-    background-color: #141d1f;
+    background-color: #FFF;
 }
 
 navigation{
     width:100%;
     height:50px;
     display:block;
-    background-color:#1a2224;
+    background-color:#A9DCA9;
     text-align: center;
-    border-bottom:2px solid #36484a;
 }
 
 .navLinks{
-    float:right;
+    float:left;
     margin-top:10px;
+    margin-left:6px;
     padding:5px;
 }
 
 .navLinks a{
-    color:#80b799;
+    color:#FFF;
     text-decoration: none;
     margin-right:5px;
     padding: 5px;
@@ -35,10 +35,10 @@ navigation{
     font-size:18px;
 }
 
-img.logo{
-    margin-top:6px;
-    margin-left:6px;
-    float:left;
+.logo{
+    margin-top: 3px;
+    margin-right: 2px;
+    float:right;
 }
 
 section.home{
@@ -47,7 +47,6 @@ section.home{
     padding: 4px;
     min-width: 400px;
     max-width: 600px;
-    background-color:#29393b;
     text-align: center;
 }
 
@@ -56,18 +55,12 @@ input.playerSearch[type="text"]{
     min-width:100px;
     width:40vw;
     height:30px;
-
-    border:none;
+    outline: none;
+    border: none;
     border-radius: 2px;
-    background-color: #29393b;
     padding: 0px 2px 0px 2px;
-
     font-size:14px;
-    color: #6c8d93;
-}
-
-input.playerSearch[type="text"]:focus{
-    box-shadow: 0px 0px 2px 2px #80b799;
+    color: #454545;
 }
 
 input.playerSearch[type="button"]{
@@ -77,12 +70,13 @@ input.playerSearch[type="button"]{
     border-radius: 2px;
     background-color:#80b799;
     font-size:18px;
-    color:#141d1f;
+    color: #FFF;
     cursor: pointer;
 }
 
 section.PlayerSearchResults{
-    width:80vh;
+    width:90vw;
+    min-width: 420px;
     margin:auto;
     margin-top:30px;
 
@@ -90,14 +84,14 @@ section.PlayerSearchResults{
 }
 
 div.PlayerSearchResultsRow{
-    background-color: #29393b;
-    min-width: 400px;
-    max-width:600px;
-    height:60px;
-    margin:auto;
-    margin-bottom: 20px;
-    cursor: pointer;
+    min-width: 300px;
+    max-width: 600px;
+    height: 60px;
+    margin: 0 auto 20px auto;
     padding:6px;
+    border-radius: 4px;
+    background-color: #F5F5F5;
+    cursor: pointer;
 }
 
 img.PlayerSearchResultsHead{
@@ -113,19 +107,19 @@ div.PlayerSearchResultsInfoWrapper{
 
 div.PlayerSearchResultsPlayerMeta{
     height:22px; 
-    border-bottom:2px solid #36484a;
+    border-bottom:2px solid #CCC;
     font-size:18px;
 }
 
 span.PlayerSearchResultPlayerName{
     float:left;
-    color:#80b799;
+    color:#A9DCA9;
 }
 
 span.PlayerSearchResultPlayerClass{
     margin-right:6px;
     float:right;
-    color:#80b799;
+    color:#A9DCA9;
 }
 
 div.PlayerSearchResultsPlayerQuickStats{
@@ -141,7 +135,8 @@ font.PlayerSearchResultsPlayerQuickStat{
 }
 
 font.PlayerSearchResultsPlayerQuickStatValue{
-    font-size:24px;
+    font-size:20px;
+    color: #454545;
 }
 
 div.profile{
@@ -150,34 +145,26 @@ div.profile{
     margin:auto;
     margin-top:30px;
     border-radius: 2px;
-    background-color: #29393b;
     padding-top:15px;
 }
 
 div.profile_header{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   min-width: 420px;
    height:250px;
 }
 
-div.profile_header_left{
-    float:left;
-    width:50%;
-}
-
 div.profile_header_left img{
-    margin-left: 25%;
     width:240px;
-    height:240px;;
+    height:240px;
 }
 
 div.profile_header_right{
-    float:right;
-    width:50%;
-    height:240px;
-
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
+    justify-content: space-evenly;
+    margin-left: 20px;
 }
 
 span.profile_header_stat_wrapper{
@@ -189,33 +176,9 @@ font.profile_header_stat_label{
 }
 
 div.class_stats {
-    margin-top:20px;
-    border-top: 4px solid #141d1f;
-}
-
-div.class_stat_navigation{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    margin-top:5px;
-    margin-left:5vw;
-    margin-right:5vw;
-    padding-bottom:5px;
-}
-
-div.class_stat_navigation span{
-    margin-left:5px;
-    margin-right:5px;
-    padding:4px 15px 4px 15px;
-    font-size: 18px;
-
-    border: 1px solid #141d1f;
-}
-
-div.class_stat_navigation span:hover{
-    cursor: pointer;
-    color: #80b799;
+    border-top: 2px solid #CCC;
+    margin-top: 20px;
+    padding-top: 10px;
 }
 
 div.class_stat_wrapper{
@@ -231,6 +194,7 @@ div.class_stat_wrapper{
 div.class_stat_entry{
     display:inline-block;
     width:18vw;
+    min-width: 250px;
     margin-bottom:20px;
 }
 
@@ -239,7 +203,6 @@ font.class_stat_entry_value{
 }
 
 div.combat_log{
-    border-top: 4px solid #141d1f;
     padding-top: 20px;
 
     font-style: italic;

@@ -16,19 +16,21 @@ export default {
 
   view: function(vnode) {
     return m('navigation', {},
-      m('img.logo', {
-        src:'https://www.peacefulcraft.net/assets/logo-aglqhi2l.png', 
-        width:40, 
-        height:40
-      }),
+      // Map the links
+      m('.navLinks', this.links.map(function(link){
+        return m(m.route.Link, {href:link.path}, link.display);
+      })),
             
       // Pass params to the serach bar
       m(PlayerSearchBar, {searchParams: vnode.attrs.searchParams}),
 
-      // Map the links
-      m('.navLinks', this.links.map(function(link){
-        return(m(m.route.Link, {href:link.path}, link.display));
-      }))
+      m('a.logo', { href: 'https://www.peacefulcraft.net' },
+        m('img.logo', {
+          src:'https://www.peacefulcraft.net/assets/logo-aglqhi2l.png', 
+          width:40, 
+          height:40
+        })
+      ),
     );
   }
 };

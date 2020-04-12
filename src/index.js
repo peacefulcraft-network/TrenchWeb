@@ -7,8 +7,7 @@ import Home from './components/views/Home.js';
 import PlayerSearchResults from './components/views/PlayerSearchResults.js';
 import PlayerProfileResult from './components/views/PlayerProfileResult.js';
 
-// eslint-disable-next-line no-unused-vars
-import style from './css/main.css';
+import '@/css/main.css';
 
 m.route(document.body, '/home',{
   '/home':{

@@ -49,7 +49,7 @@ export default {
                 ),
                 m('span', {class: 'profile_header_stat_wrapper'},
                   [ 
-                    m('i', {class:'fas fa-skull', style:'color:white;'}),
+                    m('i', {class:'fas fa-skull', style:'color:#CCC;'}),
                     m('font', ' ' + player.player_deaths),
                     m('font', {class:'profile_header_stat_label'}, ' Deaths')
                   ]
@@ -68,10 +68,6 @@ export default {
 
         // Lower stats area, pass userdata in
         m(ClassStats, {player:player}),
-
-        // Combat log
-        // Not implemented yet
-        m(CombatLogTable)
       ]
     );
   }
