@@ -29,7 +29,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
-    "prod:build": "webpack src/index.js --output bin/app.js -p",
+    "prod:build": "webpack src/index.js --output bin/app.js -p; cp ./api.php ./bin/api.php",
     "dev:lint": "eslint src/**/*.js --fix",
     "dev:start": "webpack-dev-server"
   }
