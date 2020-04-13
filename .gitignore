@@ -1,4 +1,4 @@
 .htaccess
 appconfig.php
 node_modules/
-js/bin
+bin/
