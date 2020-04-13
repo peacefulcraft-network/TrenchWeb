@@ -1,0 +1,16 @@
+.event_details {
+  min-width: 420px;
+  background-color: #F5F5F5;
+  padding: 10px;
+}
+
+.event_details h1 {
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #CCC;
+}
+
+.event_details p {
+  margin: 0;
+  margin-top: 10px;
+}

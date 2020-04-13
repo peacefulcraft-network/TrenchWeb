@@ -63,6 +63,20 @@ switch($_GET["action"]){
         echo json_encode($profile);
         exit();
 
+    break; case "top10kdr":
+        
+        $mysqli = initMysql();
+        $table = $mysqli->real_escape_string($CONFIG["db_table"]);
+        $stmt = $mysqli->prepare("SELECT `username`, `player_kills`, `player_deaths`, (`player_kills`/`player_deaths`) AS 'kdr' FROM `$table` ORDER BY `kdr` DESC LIMIT 10");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $profile = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        echo json_encode($profile);
+        exit();
+
     break; default:
 
     break;
