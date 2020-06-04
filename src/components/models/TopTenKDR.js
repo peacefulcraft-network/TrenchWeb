@@ -10,7 +10,7 @@ export default {
     if (v.state.req === null) {
       v.state.req = m.request({
         method: 'GET',
-        url: AppConfig.api_endpoint + '?action=top10kdr',
+        url: AppConfig.api_endpoint + '?action=top10kills',
         withCredentials: false,
       }).then((resp) => {
         if(resp.length > 0) {

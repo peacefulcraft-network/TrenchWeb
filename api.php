@@ -63,11 +63,11 @@ switch($_GET["action"]){
         echo json_encode($profile);
         exit();
 
-    break; case "top10kdr":
+    break; case "top10kills":
         
         $mysqli = initMysql();
         $table = $mysqli->real_escape_string($CONFIG["db_table"]);
-        $stmt = $mysqli->prepare("SELECT `username`, `player_kills`, `player_deaths`, (`player_kills`/`player_deaths`) AS 'kdr' FROM `$table` ORDER BY `kdr` DESC LIMIT 10");
+        $stmt = $mysqli->prepare("SELECT `username`, `player_kills`, `player_deaths`, (`player_kills`/`player_deaths`) AS 'kdr' FROM `$table` ORDER BY `player_kills` DESC LIMIT 10");
         $stmt->execute();
 
         $result = $stmt->get_result();
