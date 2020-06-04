@@ -1,6 +1,6 @@
 <?php
 // CORS, excessive for this but here in case more functionality is added later.
-header("Access-Control-Allow-Origin: https://player.peacefulcraft.net");
+header("Access-Control-Allow-Origin: *");
 if($_SERVER['REQUEST_METHOD'] == "OPTIONS") {
     header("Access-Control-Allow-Methods: GET");
     header("Access-Control-Allow-Credentials: false");
